@@ -5,10 +5,10 @@ exports.up = function(knex) {
     table.integer('user_id')
     table.string('drink_name')
     table.integer('topping_id')
-    table.string('type_of_tea')
-    table.integer('flavour_id')
     table.integer('cup_id')
     table.integer('straw_id')
+    table.string('type_of_tea')
+    table.string('colour')
   })
   
 };
