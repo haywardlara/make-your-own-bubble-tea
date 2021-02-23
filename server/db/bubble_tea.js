@@ -11,6 +11,11 @@ function getUsers (db = connection){
   .select()
 }
 
+function addUser (username, db = connection){
+  return db('users')
+  .insert({username: username})
+}
+
 function getCups (db = connection){
   return db('cups')
   .select()
@@ -38,7 +43,7 @@ function addBubbleTea (user_id, drink_name, topping_id, cup_id, straw_id, type_o
 
 function getBubbleTea (bubble_tea_id, db = connection){
   return db('bubble_teas')
-  .where('id', bubble_tea_id)
+  .where('bubble_teas.id', bubble_tea_id)
   .first()
   .join('cups', 'bubble_teas.cup_id', 'cups.id')
   .join('straws', 'bubble_teas.straw_id', 'straws.id')
@@ -49,6 +54,7 @@ function getBubbleTea (bubble_tea_id, db = connection){
 module.exports = {
   getBubbleTeas,
   getUsers,
+  addUser,
   getCups,
   getStraws,
   getToppings,
