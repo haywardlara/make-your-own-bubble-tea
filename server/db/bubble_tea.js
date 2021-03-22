@@ -1,4 +1,3 @@
-const { join } = require('./connection')
 const connection = require('./connection')
 
 function getBubbleTeas (db = connection) {
