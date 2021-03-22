@@ -114,7 +114,7 @@ router.get('/tea', (req, res) => {
   })
   .catch(err => {
     console.log(err)
-    res.status(500).json({ message: 'Somthing went wrong :(' + err })
+    res.status(500).json({ message: 'Somthing went wrong :( --> ' + err })
   })
 })
 

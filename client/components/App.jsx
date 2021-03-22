@@ -1,33 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { getBubbleTea } from '../apis/bubble_tea'
 
-import { fetchFruits } from '../actions'
 
-const App = (props) => {
+
+const App = () => {
+
+  const [bubbleTea, setBubbleTea] = useState([])
+
+  const populateBubbleTea = () => {
+    getBubbleTea()
+      .then(tea => {
+        setBubbleTea(tea)
+      })
+  }
+
   useEffect(() => {
-    props.dispatch(fetchFruits())
-  })
+    populateBubbleTea()
+  }, [])
 
   return (
     <>
       <div className='app'>
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
+        <h1>This will be bubble tea!</h1>
         <ul>
-          {props.fruits.map(fruit => (
-            <li key={fruit}>{fruit}</li>
+          {bubbleTea.map(tea => (
+            <li key={tea.id}>{tea.drink_name}</li>
           ))}
         </ul>
       </div>
     </>
   )
 }
-const mapStateToProps = (globalState) => {
-  return {
-    fruits: globalState.fruits
-  }
-}
 
-export default connect(mapStateToProps)(App)
+
+export default App
 
 
 
