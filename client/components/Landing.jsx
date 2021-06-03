@@ -132,7 +132,24 @@ const Landing = () => {
     })
   }
 
-  const successHandler = (username) => {
+  const searchUsernames = (e) => {
+    e.preventDefault()
+    const searchValue = e.target.value.toLowerCase()
+    let newUsernames = []
+    const matches = findBestMatch(searchValue, users.map(u => u.toLowerCase()))
+    console.log(searchValue, matches)
+    if(matches.bestMatch.rating == 1){
+      setUsers(() => [users[matches.bestMatchIndex]])
+    } else if(matches.bestMatch.rating > 0 && matches.bestMatch.rating < 1 ){
+      findUsers()
+      let matchesArrayIndexes = []
+
+    }
+  }
+
+  const successHandler = (e) => {
+    e.preventDefault()
+    let username = e.target.value
     localStorage.setItem("user", username)
     history.push("/make")
   }
@@ -157,7 +174,10 @@ const Landing = () => {
       {error && <p>{error}</p>}
 
       <p>Existing User:</p>
-      <ul>
+      <form>
+        <label>Search: <input type="text" name="search" onChange={searchUsernames}></input></label>
+      </form>
+      {/* <ul>
         {users.sort().map((username) => {
           return (
             <li key={username}>
@@ -165,7 +185,16 @@ const Landing = () => {
             </li>
           )
         })}
-      </ul>
+      </ul> */}
+
+
+      <select name="usernames" size={users.length} onChange={successHandler}>
+        {users.sort().map((username) => {
+          return (
+            <option key={username} value={username}>{username}</option>
+          )
+        })}
+      </select>
     </>
   )
 }
